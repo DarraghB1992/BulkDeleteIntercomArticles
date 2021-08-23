@@ -11,6 +11,17 @@ headers = {
 }
 
 
+def delete_all_articles():
+    article_ids = list_all_articles()
+    for article_id in article_ids:
+        r = requests.delete(IntercomUrl + '/' + article_id, headers=headers)
+        print(str(id))
+        print(r.status_code)
+        print(r.text)
+        print(r.headers)
+    print('Complete')
+
+
 def list_all_articles():
     r = requests.get(IntercomUrl, headers=headers)
     articles_json = json.loads(r.text)
@@ -26,13 +37,6 @@ def list_all_articles():
     return article_ids
 
 
-def one_page_of_articles(article_json):
-    article_ids = []
-    current_ids = get_article_ids(article_json)
-    article_ids += current_ids
-    return article_ids
-
-
 def get_article_ids(article_json):
     article_ids = []
     articles = article_json['data']
@@ -40,6 +44,13 @@ def get_article_ids(article_json):
     for article in articles:
         current_id = article['id']
         article_ids.append(current_id)
+    return article_ids
+
+
+def one_page_of_articles(article_json):
+    article_ids = []
+    current_ids = get_article_ids(article_json)
+    article_ids += current_ids
     return article_ids
 
 
@@ -67,17 +78,6 @@ def multiple_pages_of_articles(articles_json):
         else:
             print('Page ' + str(request + 1) + ' ids gathered')
     return article_ids
-
-
-def delete_all_articles():
-    article_ids = list_all_articles()
-    for article_id in article_ids:
-        r = requests.delete(IntercomUrl + '/' + article_id, headers=headers)
-        print(str(id))
-        print(r.status_code)
-        print(r.text)
-        print(r.headers)
-    print('Complete')
 
 
 if __name__ == '__main__':

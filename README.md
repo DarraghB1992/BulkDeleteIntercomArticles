@@ -1,0 +1,1 @@
+# Code from the blog post https://www.intercomtips.com/post/bulk-delete-articles-in-intercom/
