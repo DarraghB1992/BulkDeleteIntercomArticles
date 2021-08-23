@@ -1,0 +1,5 @@
+venv/*
+scratch.py
+.idea/*
+.DS_Store
+article.html
